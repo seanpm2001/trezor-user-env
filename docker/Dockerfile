@@ -34,4 +34,8 @@ RUN nix-shell --run "echo deps pre-installed"
 
 RUN nix-shell --run "poetry install"
 
+# Nix garbage collection to reduce image size
+# TODO: can do && nix-store --optimize ... takes a long time however
+RUN nix-collect-garbage -d
+
 CMD nix-shell --run "./run-nix.sh"
