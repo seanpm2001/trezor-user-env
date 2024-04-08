@@ -6,6 +6,8 @@ __pycache__
 src/binaries/firmware/bin/*
 !src/binaries/firmware/bin/download.sh
 !src/binaries/firmware/bin/download_latest_gh.py
+# TEMPORARY!
+!src/binaries/firmware/bin/trezor-emu-core-T3T1-v2-main-arm
 !src/binaries/trezord-go/bin/download.sh
 emulator.img
 .vscode
