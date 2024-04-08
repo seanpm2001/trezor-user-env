@@ -3,6 +3,9 @@ src/binaries/trezord-go/repo/
 docker/Dockerfile
 docker/compose.yml
 .git
-.pytest_cache
-.mypy_cache
-__pycache__
+.dockerignore
+.gitignore
+.vscode
+**/__pycache__
+**/.mypy_cache
+**/.pytest_cache

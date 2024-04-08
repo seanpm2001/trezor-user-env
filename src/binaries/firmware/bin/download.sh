@@ -21,6 +21,7 @@ elif [[ $SYSTEM_ARCH == aarch64* ]]; then
     CORE_LATEST_BUILD="${GITLAB_URL}?job=core%20unix%20frozen%20debug%20build%20arm"
     R_LATEST_BUILD="${GITLAB_URL}?job=core%20unix%20frozen%20R%20debug%20build%20arm"
     LEGACY_LATEST_BUILD="${GITLAB_URL}?job=legacy%20emu%20regular%20debug%20build%20arm"
+    T3T1_LATEST_BUILD="${GITLAB_URL}?job=core%20unix%20frozen%20T3T1%20debug%20build%20arm"
     CUT_DIRS=5
 
 else
@@ -72,6 +73,10 @@ elif [[ $SYSTEM_ARCH == aarch64* ]]; then
     wget --no-config -O trezor-emu-core-R-arm-main.zip "$R_LATEST_BUILD"
     unzip -o -q trezor-emu-core-R-arm-main.zip -d arm/
     mv arm/core/build/unix/trezor-emu-core-arm ../trezor-emu-core-R-v2-main-arm
+
+    wget --no-config -O trezor-emu-core-T3T1-arm-main.zip "$T3T1_LATEST_BUILD"
+    unzip -o -q trezor-emu-core-T3T1-arm-main.zip -d arm/
+    mv arm/core/build/unix/trezor-emu-core-arm ../trezor-emu-core-T3T1-v2-main-arm
 
     wget --no-config -O trezor-emu-legacy-arm-main.zip "$LEGACY_LATEST_BUILD"
     unzip -o -q trezor-emu-legacy-arm-main.zip -d arm/
