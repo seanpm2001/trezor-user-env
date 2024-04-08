@@ -12,8 +12,6 @@ GITLAB_URL="https://gitlab.com/satoshilabs/trezor/trezor-firmware/-/jobs/artifac
 
 if [[ $SYSTEM_ARCH == x86_64* ]]; then
     # All core emulators are downloaded from GithubActions
-    python download_latest_gh.py
-
     SITE="https://data.trezor.io/dev/firmware/releases/emulators/"
     LEGACY_LATEST_BUILD="${GITLAB_URL}?job=legacy%20emu%20regular%20debug%20build"
     CUT_DIRS=4
@@ -56,6 +54,15 @@ if [[ $SYSTEM_ARCH == x86_64* ]]; then
     wget --no-config -O trezor-emu-legacy-main.zip "$LEGACY_LATEST_BUILD"
     unzip -o -q trezor-emu-legacy-main.zip
     mv legacy/firmware/trezor.elf ../trezor-emu-legacy-v1-main
+
+    wget https://data.trezor.io/dev/firmware/emu-nightly/trezor-emu-core-T2T1-universal
+    mv trezor-emu-core-T2T1-universal ../trezor-emu-core-v2-main
+
+    wget https://data.trezor.io/dev/firmware/emu-nightly/trezor-emu-core-T3T1-universal
+    mv trezor-emu-core-T3T1-universal ../trezor-emu-core-T3T1-v2-main
+
+    wget https://data.trezor.io/dev/firmware/emu-nightly/trezor-emu-core-T2B1-universal
+    mv trezor-emu-core-T2B1-universal ../trezor-emu-core-R-v2-main
 
 elif [[ $SYSTEM_ARCH == aarch64* ]]; then
     wget --no-config -O trezor-emu-core-arm-main.zip "$CORE_LATEST_BUILD"
