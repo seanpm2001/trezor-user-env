@@ -298,7 +298,7 @@ class ResponseGetter:
             screen_base_64 = emulator.get_current_screen()
             return {"response": screen_base_64}
         elif self.command == "emulator-get-debug-state":
-            debug_state = emulator.get_debug_state()
+            debug_state = emulator.get_debug_state(self.request_dict["thp_channel_id"])
             return {"response": debug_state}
         elif self.command == "emulator-get-screen-content":
             content = emulator.get_screen_content()

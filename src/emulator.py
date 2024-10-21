@@ -360,7 +360,7 @@ def setup_device(
     #   "wrong previous session" from bridge
     with connect_to_client() as client:
         debuglink.load_device(
-            client,
+            client.get_management_session(),
             mnemonic,
             pin,
             passphrase_protection,
@@ -371,7 +371,7 @@ def setup_device(
 
 def wipe_device() -> None:
     with connect_to_client() as client:
-        device.wipe(client)
+        device.wipe(client.get_management_session())
 
 
 def reset_device(
@@ -382,7 +382,7 @@ def reset_device(
 
     with connect_to_client() as client:
         device.reset(
-            client,
+            client.get_management_session(),
             skip_backup=True,
             pin_protection=False,
             backup_type=backup_type,
@@ -866,7 +866,7 @@ def apply_settings(
 
     with connect_to_client() as client:
         device.apply_settings(
-            client,
+            client.get_management_session(),
             label=label,
             language=language,
             use_passphrase=use_passphrase,
@@ -903,10 +903,13 @@ def allow_unsafe() -> None:
                 raise
 
 
-def get_debug_state() -> Dict[str, Any]:
+def get_debug_state(thp_channel_id=None) -> Dict[str, Any]:
     # We need to connect on UDP not to interrupt any bridge sessions
     with connect_to_debuglink(needs_udp=True) as debug:
-        debug_state = debug.state()
+        channel_id = None
+        if thp_channel_id is not None:
+            channel_id = bytearray.fromhex(thp_channel_id)
+        debug_state = debug.state(thp_channel_id=channel_id)
         debug_state_dict: Dict[str, Any] = {}
         for key in dir(debug_state):
             val = getattr(debug_state, key)
